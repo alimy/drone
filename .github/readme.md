@@ -1,3 +1,5 @@
+## Drone
+[![Build Status](https://cloud.drone.io/api/badges/alimy/drone/status.svg)](https://cloud.drone.io/alimy/drone)  
 Drone is a Continuous Delivery system built on container technology. Drone uses a simple YAML configuration file, a superset of docker-compose, to define and execute Pipelines inside Docker containers. 
 
 <br/>
