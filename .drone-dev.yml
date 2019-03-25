@@ -38,7 +38,7 @@ steps:
   settings:
     auto_tag: true
     auto_tag_suffix: linux-amd64
-    dockerfile: docker/Dockerfile.agent.linux.amd64
+    dockerfile: docker/dev/Dockerfile.agent.linux.amd64
     password:
       from_secret: docker_password
     repo: bitriory/drone-agent-dev
@@ -54,7 +54,7 @@ steps:
   settings:
     auto_tag: true
     auto_tag_suffix: linux-amd64
-    dockerfile: docker/Dockerfile.controller.linux.amd64
+    dockerfile: docker/dev/Dockerfile.controller.linux.amd64
     password:
       from_secret: docker_password
     repo: bitriory/drone-controller-dev
@@ -70,7 +70,7 @@ steps:
   settings:
     auto_tag: true
     auto_tag_suffix: linux-amd64
-    dockerfile: docker/Dockerfile.server.linux.amd64
+    dockerfile: docker/dev/Dockerfile.server.linux.amd64
     password:
       from_secret: docker_password
     repo: bitriory/drone-server-dev
