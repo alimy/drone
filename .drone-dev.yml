@@ -17,6 +17,7 @@ steps:
       GO111MODULE: on
       CGO_ENABLED: 0
     commands:
+      - apk --no-cache --no-progress add git
       - go mod download
       - go test -v ./...
 
@@ -26,6 +27,7 @@ steps:
       GO111MODULE: on
       CGO_ENABLED: 0
     commands:
+      - apk --no-cache --no-progress add git
       - go mod download
       - CGO_ENABLED=1 "go build -ldflags \"-extldflags \\\\\"-static\\\\\"\" -o release/linux/amd64/drone-server github.com/drone/drone/cmd/drone-server"
       - go build -o release/linux/amd64/drone-agent github.com/drone/drone/cmd/drone-agent
