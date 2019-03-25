@@ -9,8 +9,8 @@ import (
 	"database/sql"
 	"testing"
 
-	"github.com/drone/drone/store/shared/db"
 	"github.com/drone/drone/core"
+	"github.com/drone/drone/store/shared/db"
 
 	"github.com/drone/drone/store/shared/db/dbtest"
 )

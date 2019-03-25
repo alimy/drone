@@ -180,7 +180,7 @@ func (s *kubeScheduler) Cancel(ctx context.Context, id int64) error {
 			continue
 		}
 		err = s.client.BatchV1().Jobs(job.Namespace).Delete(job.Name, &metav1.DeleteOptions{
-		// GracePeriodSeconds
+			// GracePeriodSeconds
 		})
 		if err != nil {
 			result = multierror.Append(result, err)

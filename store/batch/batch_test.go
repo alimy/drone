@@ -9,11 +9,11 @@ import (
 	"database/sql"
 	"testing"
 
-	"github.com/drone/drone/store/shared/db"
-	"github.com/drone/drone/store/shared/db/dbtest"
 	"github.com/drone/drone/core"
 	"github.com/drone/drone/store/perm"
 	"github.com/drone/drone/store/repos"
+	"github.com/drone/drone/store/shared/db"
+	"github.com/drone/drone/store/shared/db/dbtest"
 	"github.com/drone/drone/store/user"
 )
 

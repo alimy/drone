@@ -11,77 +11,77 @@ workspace:
   path: src/github.com/drone/drone
 
 steps:
-- name: test
-  image: golang:1.12-alpine
-  environment:
-  - GO111MODULE=on
-  - CGO_ENABLED=0
-  commands:
-  - go mod download
-  - go test -v ./...
+  - name: test
+    image: golang:1.12-alpine
+    environment:
+      - GO111MODULE=on
+      - CGO_ENABLED=0
+    commands:
+      - go mod download
+      - go test -v ./...
 
-- name: build
-  image: golang:1.12-alpine
-  environment:
-    - GO111MODULE=on
-    - CGO_ENABLED=0
-  commands:
-  - go mod download
-  - CGO_ENABLED=1 "go build -ldflags \"-extldflags \\\\\"-static\\\\\"\" -o release/linux/amd64/drone-server github.com/drone/drone/cmd/drone-server"
-  - go build -o release/linux/amd64/drone-agent github.com/drone/drone/cmd/drone-agent
-  - go build -o release/linux/amd64/drone-controller github.com/drone/drone/cmd/drone-controller
-  when:
-    event:
-    - push
-    - tag
+  - name: build
+    image: golang:1.12-alpine
+    environment:
+      - GO111MODULE=on
+      - CGO_ENABLED=0
+    commands:
+      - go mod download
+      - CGO_ENABLED=1 "go build -ldflags \"-extldflags \\\\\"-static\\\\\"\" -o release/linux/amd64/drone-server github.com/drone/drone/cmd/drone-server"
+      - go build -o release/linux/amd64/drone-agent github.com/drone/drone/cmd/drone-agent
+      - go build -o release/linux/amd64/drone-controller github.com/drone/drone/cmd/drone-controller
+    when:
+      event:
+        - push
+        - tag
 
-- name: publish_agent
-  image: plugins/docker
-  settings:
-    auto_tag: true
-    auto_tag_suffix: linux-amd64
-    dockerfile: docker/dev/Dockerfile.agent.linux.amd64
-    password:
-      from_secret: docker_password
-    repo: bitriory/drone-agent-dev
-    username:
-      from_secret: docker_username
-  when:
-    event:
-    - push
-    - tag
+  - name: publish_agent
+    image: plugins/docker
+    settings:
+      auto_tag: true
+      auto_tag_suffix: linux-amd64
+      dockerfile: docker/dev/Dockerfile.agent.linux.amd64
+      password:
+        from_secret: docker_password
+      repo: bitriory/drone-agent-dev
+      username:
+        from_secret: docker_username
+    when:
+      event:
+        - push
+        - tag
 
-- name: publish_controller
-  image: plugins/docker
-  settings:
-    auto_tag: true
-    auto_tag_suffix: linux-amd64
-    dockerfile: docker/dev/Dockerfile.controller.linux.amd64
-    password:
-      from_secret: docker_password
-    repo: bitriory/drone-controller-dev
-    username:
-      from_secret: docker_username
-  when:
-    event:
-    - push
-    - tag
+  - name: publish_controller
+    image: plugins/docker
+    settings:
+      auto_tag: true
+      auto_tag_suffix: linux-amd64
+      dockerfile: docker/dev/Dockerfile.controller.linux.amd64
+      password:
+        from_secret: docker_password
+      repo: bitriory/drone-controller-dev
+      username:
+        from_secret: docker_username
+    when:
+      event:
+        - push
+        - tag
 
-- name: publish_server
-  image: plugins/docker
-  settings:
-    auto_tag: true
-    auto_tag_suffix: linux-amd64
-    dockerfile: docker/dev/Dockerfile.server.linux.amd64
-    password:
-      from_secret: docker_password
-    repo: bitriory/drone-server-dev
-    username:
-      from_secret: docker_username
-  when:
-    event:
-    - push
-    - tag
+  - name: publish_server
+    image: plugins/docker
+    settings:
+      auto_tag: true
+      auto_tag_suffix: linux-amd64
+      dockerfile: docker/dev/Dockerfile.server.linux.amd64
+      password:
+        from_secret: docker_password
+      repo: bitriory/drone-server-dev
+      username:
+        from_secret: docker_username
+    when:
+      event:
+        - push
+        - tag
 
 ---
 kind: pipeline
@@ -96,52 +96,52 @@ workspace:
   path: src/github.com/drone/drone
 
 steps:
-- name: server
-  image: plugins/manifest
-  settings:
-    auto_tag: true
-    ignore_missing: true
-    password:
-      from_secret: docker_password
-    spec: docker/dev/manifest.server.tmpl
-    username:
-      from_secret: docker_username
-  when:
-    event:
-    - push
-    - tag
+  - name: server
+    image: plugins/manifest
+    settings:
+      auto_tag: true
+      ignore_missing: true
+      password:
+        from_secret: docker_password
+      spec: docker/dev/manifest.server.tmpl
+      username:
+        from_secret: docker_username
+    when:
+      event:
+        - push
+        - tag
 
-- name: controller
-  image: plugins/manifest
-  settings:
-    auto_tag: true
-    ignore_missing: true
-    password:
-      from_secret: docker_password
-    spec: docker/dev/manifest.controller.tmpl
-    username:
-      from_secret: docker_username
-  when:
-    event:
-    - push
-    - tag
+  - name: controller
+    image: plugins/manifest
+    settings:
+      auto_tag: true
+      ignore_missing: true
+      password:
+        from_secret: docker_password
+      spec: docker/dev/manifest.controller.tmpl
+      username:
+        from_secret: docker_username
+    when:
+      event:
+        - push
+        - tag
 
-- name: agent
-  image: plugins/manifest
-  settings:
-    auto_tag: true
-    ignore_missing: true
-    password:
-      from_secret: docker_password
-    spec: docker/dev/manifest.agent.tmpl
-    username:
-      from_secret: docker_username
-  when:
-    event:
-    - push
-    - tag
+  - name: agent
+    image: plugins/manifest
+    settings:
+      auto_tag: true
+      ignore_missing: true
+      password:
+        from_secret: docker_password
+      spec: docker/dev/manifest.agent.tmpl
+      username:
+        from_secret: docker_username
+    when:
+      event:
+        - push
+        - tag
 
 depends_on:
-- linux-amd64
+  - linux-amd64
 
 ...
