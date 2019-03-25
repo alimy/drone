@@ -14,8 +14,8 @@ steps:
   - name: test
     image: golang:1.12-alpine
     environment:
-      - GO111MODULE=on
-      - CGO_ENABLED=0
+      GO111MODULE: on
+      CGO_ENABLED: 0
     commands:
       - go mod download
       - go test -v ./...
@@ -23,8 +23,8 @@ steps:
   - name: build
     image: golang:1.12-alpine
     environment:
-      - GO111MODULE=on
-      - CGO_ENABLED=0
+      GO111MODULE: on
+      CGO_ENABLED: 0
     commands:
       - go mod download
       - CGO_ENABLED=1 "go build -ldflags \"-extldflags \\\\\"-static\\\\\"\" -o release/linux/amd64/drone-server github.com/drone/drone/cmd/drone-server"
