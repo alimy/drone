@@ -17,7 +17,7 @@ package web
 import (
 	"net/http"
 
-	"github.com/drone/drone-ui/dist"
+	"github.com/alimy/drone-ui/dist"
 )
 
 // HandleLogout creates an http.HandlerFunc that handles
@@ -27,7 +27,7 @@ func HandleLogout() http.HandlerFunc {
 		w.Header().Add("Set-Cookie", "_session_=deleted; Path=/; Max-Age=0")
 		w.Header().Set("Content-Type", "text/html; charset=UTF-8")
 		w.Write(
-			dist.MustLookup("/index.html"),
+			dist.MustAsset("index.html"),
 		)
 	}
 }

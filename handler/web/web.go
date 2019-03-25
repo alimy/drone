@@ -17,7 +17,7 @@ package web
 import (
 	"net/http"
 
-	"github.com/drone/drone-ui/dist"
+	"github.com/alimy/drone-ui/dist"
 	"github.com/drone/drone/core"
 	"github.com/drone/drone/handler/web/landingpage"
 	"github.com/drone/drone/logger"
@@ -122,7 +122,7 @@ func (s Server) Handler() http.Handler {
 	r.Get("/logout", HandleLogout())
 
 	h2 := http.FileServer(landingpage.New())
-	h := http.FileServer(dist.New())
+	h := http.FileServer(dist.AssetFile())
 	h = setupCache(h)
 	r.Handle("/favicon.png", h)
 	r.Handle("/js/*filepath", h)

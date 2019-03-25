@@ -21,7 +21,7 @@ import (
 	"net/http"
 	"time"
 
-	"github.com/drone/drone-ui/dist"
+	"github.com/alimy/drone-ui/dist"
 	"github.com/drone/drone/core"
 	"github.com/drone/drone/handler/web/landingpage"
 )
@@ -35,7 +35,7 @@ func HandleIndex(host string, session core.Session, license core.LicenseService)
 			return
 		}
 
-		out := dist.MustLookup("/index.html")
+		out := dist.MustAsset("index.html")
 		ctx := r.Context()
 
 		if ok, _ := license.Exceeded(ctx); ok {
