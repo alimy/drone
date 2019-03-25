@@ -1,0 +1,47 @@
+kind: pipeline
+name: go1.12
+
+workspace:
+  base: /go
+  path: src/github.com/drone/drone
+
+steps:
+  - name: test
+    image: golang:1.12
+    environment:
+      GO111MODULE: on
+    commands:
+      - go mod download
+      - go test -v ./...
+
+---
+kind: pipeline
+name: go1.11
+
+workspace:
+  base: /go
+  path: src/github.com/drone/drone
+
+steps:
+  - name: test
+    image: golang:1.11
+    environment:
+      GO111MODULE: on
+    commands:
+      - go mod download
+      - go test -v ./...
+
+---
+kind: pipeline
+name: go1.10
+
+workspace:
+  base: /go
+  path: src/github.com/drone/drone
+
+steps:
+  - name: test
+    image: golang:1.10
+    commands:
+      - go get
+      - go test -v ./...
